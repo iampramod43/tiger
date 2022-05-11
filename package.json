@@ -1,0 +1,55 @@
+{
+  "name": "mes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "lab -a @hapi/code -L -c --coverage-exclude test --coverage-exclude node_modules",
+    "test-cov-html": "lab -a @hapi/code -r html -o coverage.html",
+    "start": "node app.js"
+  },
+  "author": "Pramod Ukkali",
+  "license": "ISC",
+  "dependencies": {
+    "hapi": "^18.1.0",
+    "nodemon": "^2.0.16",
+    "@hapi/boom": "9.1.0",
+    "@hapi/code": "^8.0.2",
+    "@hapi/glue": "^8.0.0",
+    "@hapi/good": "^9.0.0",
+    "@hapi/good-console": "^9.0.0",
+    "@hapi/good-squeeze": "^6.0.0",
+    "@hapi/hapi": "^20.0.0",
+    "@hapi/inert": "^6.0.2",
+    "@hapi/lab": "^23.0.0",
+    "@hapi/vision": "^6.0.1",
+    "bluebird": "^3.5.5",
+    "hapi-api-version": "^2.3.1",
+    "hapi-authorization-feature": "^0.0.8",
+    "hapi-bearer-auth": "^0.0.4",
+    "hapi-swagger": "^14.0.0",
+    "jimp": "^0.16.1",
+    "joi": "^17.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "jsts": "2.7.1",
+    "luxon": "^1.24.1",
+    "moment": "^2.24.0",
+    "mongoosastic": "^4.6.0",
+    "mongoose": "^6.1.3",
+    "nanoid": "^2.0.3",
+    "ua-parser-js": "^0.7.24",
+    "blipp": "^4.0.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^1.7.0"
+  }
+}

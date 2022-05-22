@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 const Bluebird = require('bluebird');
+const student = require('../Models/Student');
+const subject = require('../Models/Subject');
 
+console.log('models>?>>', student);
 const MongoDBUrl = process.env.MONGO_URI || 'mongodb+srv://tiger:pr%40mod0514@cluster0.sqemz.mongodb.net/Cluster0?retryWrites=true&w=majority';
 
 module.exports = () => {
@@ -19,7 +22,11 @@ module.exports = () => {
   }).catch((error) => {
     console.log('info', `error connecting to db: ${error}`);
   });
-
+  // mongoose.model('student', student.student);
+  // // mongoose.model('teacher_user', models.teacher_user);
+  // mongoose.model('subject', subject.subject);
+  // mongoose.model('branch', models.branch);
+  // mongoose.model('result', models.result);
   const db = mongoose.connection;
 
   db.on('error', (err) => {

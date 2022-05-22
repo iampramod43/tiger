@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
 /* eslint-disable consistent-return */
@@ -14,6 +15,7 @@ const startServer = async () => {
   try {
     const server = await Glue.compose(manifest, {});
     mongodb();
+    require('./Models');
 
     server.realm.modifiers.route.prefix = '/api/tiger';
     server.validator(Joi);

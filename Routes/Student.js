@@ -6,7 +6,7 @@ const Success = require('../Lib/SuccessResponse');
 
 // Joi variables
 const objectId = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
-const objectIdArray = Joi.array().items(objectId).default([]);
+// const objectIdArray = Joi.array().items(objectId).default([]);
 
 
 module.exports = [
@@ -24,6 +24,8 @@ module.exports = [
         query: {
           sem: Joi.number().required(),
           branch: Joi.string().required(),
+          shift: Joi.string().required(),
+          year: Joi.string().required(),
         },
         failAction: responseHandler.JoiFailAction,
       },
@@ -71,18 +73,14 @@ module.exports = [
         payload: Joi.object().keys({
           _id: objectId.required(),
           reg_no: Joi.string().required(),
-          ia_totals: Joi.array().items(
-            Joi.object().keys({
-              subject: objectId.required(),
-              marks: Joi.number().required(),
-            }),
-          ),
-          end_totals: Joi.array().items(
-            Joi.object().keys({
-              subject: objectId.required(),
-              marks: Joi.number().required(),
-            }),
-          ),
+          ia_totals: Joi.object().keys({
+            subject: objectId.required(),
+            marks: Joi.string().required(),
+          }),
+          end_totals: Joi.object().keys({
+            subject: objectId.required(),
+            marks: Joi.string().required(),
+          }),
         }),
         failAction: responseHandler.JoiFailAction,
       },

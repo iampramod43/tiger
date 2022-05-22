@@ -4,4 +4,5 @@ module.exports = [
   ...require('./Student'),
   ...require('./Subject'),
   ...require('./Branch'),
+  ...require('./Result'),
 ];

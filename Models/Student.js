@@ -18,15 +18,15 @@ const student = new Schema({
   address: { type: String, trim: true },
   sem: { type: Number },
   branch: { type: String, trim: true },
-  year: { type: Number, required: true },
+  year: { type: String, required: true },
   dob: { type: Date },
   ia_marks: [{ ia1: { type: Number } }, { ia2: { type: Number } },
     { ia3: { type: Number } }, { ia4: { type: Number } }],
   ia_totals: [
-    { subject: { type: Schema.Types.ObjectId, ref: 'Subject' }, marks: Number },
+    { subject: { type: Schema.Types.ObjectId, ref: 'subject' }, marks: String },
   ],
   end_totals: [
-    { subject: { type: Schema.Types.ObjectId, ref: 'Subject' }, marks: Number },
+    { subject: { type: Schema.Types.ObjectId, ref: 'subject' }, marks: String },
   ],
   ia_percentage: { type: Number, default: 0 },
   sgpa: { type: Number, default: 0 },
@@ -37,6 +37,7 @@ const student = new Schema({
   },
   photo: { type: String, default: '' },
   month: { type: String },
+  shift: { type: String, default: '' },
 
 }, { timestamps: opts });
 

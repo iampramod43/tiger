@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 const Bluebird = require('bluebird');
-const student = require('../Models/Student');
-const subject = require('../Models/Subject');
+// const student = require('../Models/Student');
+// const subject = require('../Models/Subject');
 
-console.log('models>?>>', student);
+// console.log('models>?>>', student);
 const MongoDBUrl = process.env.MONGO_URI || 'mongodb+srv://tiger:pr%40mod0514@cluster0.sqemz.mongodb.net/Cluster0?retryWrites=true&w=majority';
 
 module.exports = () => {

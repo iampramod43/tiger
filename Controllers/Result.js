@@ -32,16 +32,17 @@ const getResult = async (query) => {
       const allMarks = ia_totals.map(({ subject, marks }) => {
         const temp1 = {};
         temp1.subject = subject;
-        temp1.cie = marks === 'AB' || marks === 'NE' ? marks : parseInt(marks, 10);
+        temp1.cie = marks === 'AB' || marks === 'NE' || marks === 'A' || marks === 'B' || marks === 'C' || marks === 'D' || marks === 'F' ? marks : parseInt(marks, 10);
         // console.log('data>>>', temp1);
         // console.log('end_totals>>>>', end_totals);
         temp1.see = end_totals.find(({ subject: sub }) => sub._id.toString() === temp1.subject._id.toString());
-        // console.log('temp1>>>>', temp1.see);
-        if (temp1.see) temp1.see = temp1.see.marks === 'AB' || temp1.see.marks === 'NE' ? temp1.see.marks : parseInt(temp1.see.marks, 10);
+        console.log('temp1>>>>', temp1.see);
+        if (temp1.see) temp1.see = temp1.see.marks === 'AB' || temp1.see.marks === 'NE' || temp1.see.marks === 'A' || temp1.see.marks === 'B' || temp1.see.marks === 'C' || temp1.see.marks === 'D' || temp1.see.marks === 'F' ? temp1.see.marks : parseInt(temp1.see.marks, 10);
         else temp1.see = 0;
-        if ((temp1.cie === 'AB' || temp1.cie === 'NE') && (temp1.see !== 'AB' && temp1.see !== 'NE')) temp1.total = temp1.see;
-        else if ((temp1.cie !== 'AB' && temp1.cie !== 'NE') && (temp1.see === 'AB' || temp1.see === 'NE')) temp1.total = temp1.cie;
-            else if ((temp1.cie === 'AB' || temp1.cie === 'NE') && (temp1.see === 'AB' || temp1.see === 'NE')) temp1.total = 0;
+        console.log('temp1>>>>', temp1.see);
+        if ((temp1.cie === 'AB' || temp1.cie === 'NE' || temp1.cie === 'A' || temp1.cie === 'B' || temp1.cie === 'C' || temp1.cie === 'D' || temp1.cie === 'F') && (temp1.see !== 'AB' && temp1.see !== 'NE' && temp1.see.marks !== 'A' && temp1.see.marks !== 'B' && temp1.see.marks !== 'C' && temp1.see.marks !== 'D' && temp1.see.marks !== 'F')) temp1.total = temp1.see;
+        else if ((temp1.cie !== 'AB' && temp1.cie !== 'NE' && temp1.cie !== 'A' && temp1.cie !== 'B' && temp1.cie !== 'C' && temp1.cie !== 'D' && temp1.cie !== 'F') && (temp1.see === 'AB' || temp1.see === 'NE' || temp1.see.marks === 'A' || temp1.see.marks === 'B' || temp1.see.marks === 'C' || temp1.see.marks === 'D' || temp1.see.marks === 'F')) temp1.total = temp1.cie;
+        else if ((temp1.cie === 'AB' || temp1.cie === 'NE' || temp1.cie === 'A' || temp1.cie === 'B' || temp1.cie === 'C' || temp1.cie === 'D' || temp1.cie === 'F') && (temp1.see === 'AB' || temp1.see === 'NE' || temp1.see.marks === 'A' || temp1.see.marks === 'B' || temp1.see.marks === 'C' || temp1.see.marks === 'D' || temp1.see.marks === 'F')) temp1.total = 0;
         else temp1.total = temp1.cie + temp1.see;
         // temp1.total = temp1.cie + temp1.see;
         temp1.result = (temp1.cie >= temp1.subject.min_cie_marks && temp1.see >= temp1.subject.min_see_marks && temp1.cie !== 'AB' && temp1.see !== 'NE') ? 'P' : 'F';
@@ -51,13 +52,13 @@ const getResult = async (query) => {
       const temp = {};
       temp.name = student.name;
       temp.reg_no = student.reg_no;
-        temp.marks = allMarks;
-        console.log('allMarks>>>>', allMarks);
+      temp.marks = allMarks;
+      // console.log('allMarks>>>>', allMarks);
 
-        temp.total = allMarks.reduce((acc, curr) => acc + curr.total, 0);
-        console.log('temp.total>>>>', temp.total);
+      temp.total = allMarks.reduce((acc, curr) => acc + curr.total, 0);
+      // console.log('temp.total>>>>', temp.total);
       temp.remarks = 'PASS';
-    //   console.log(temp);
+      //   console.log(temp);
       temp.marks.forEach((mark) => {
         if (mark.result === 'F') {
           temp.remarks = 'FAIL';
@@ -86,6 +87,7 @@ const getResult = async (query) => {
       return temp;
     }
   });
+  console.log('stude>>>', result[0]);
   return result;
 };
 

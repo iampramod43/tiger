@@ -15,6 +15,7 @@ const subject = new Schema({
   max_see_marks: { type: Number },
   min_see_marks: { type: Number },
   min_cie_marks: { type: Number },
+  sort_criteria: { type: Number },
 }, { timestamps: opts });
 
 module.exports = mongoose.model('subject', subject);

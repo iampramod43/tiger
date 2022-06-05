@@ -36,10 +36,9 @@ const getResult = async (query) => {
         // console.log('data>>>', temp1);
         // console.log('end_totals>>>>', end_totals);
         temp1.see = end_totals.find(({ subject: sub }) => sub._id.toString() === temp1.subject._id.toString());
-        console.log('temp1>>>>', temp1.see);
+
         if (temp1.see) temp1.see = temp1.see.marks === 'AB' || temp1.see.marks === 'NE' || temp1.see.marks === 'A' || temp1.see.marks === 'B' || temp1.see.marks === 'C' || temp1.see.marks === 'D' || temp1.see.marks === 'F' ? temp1.see.marks : parseInt(temp1.see.marks, 10);
         else temp1.see = 0;
-        console.log('temp1>>>>', temp1.see);
         if ((temp1.cie === 'AB' || temp1.cie === 'NE' || temp1.cie === 'A' || temp1.cie === 'B' || temp1.cie === 'C' || temp1.cie === 'D' || temp1.cie === 'F') && (temp1.see !== 'AB' && temp1.see !== 'NE' && temp1.see.marks !== 'A' && temp1.see.marks !== 'B' && temp1.see.marks !== 'C' && temp1.see.marks !== 'D' && temp1.see.marks !== 'F')) temp1.total = temp1.see;
         else if ((temp1.cie !== 'AB' && temp1.cie !== 'NE' && temp1.cie !== 'A' && temp1.cie !== 'B' && temp1.cie !== 'C' && temp1.cie !== 'D' && temp1.cie !== 'F') && (temp1.see === 'AB' || temp1.see === 'NE' || temp1.see.marks === 'A' || temp1.see.marks === 'B' || temp1.see.marks === 'C' || temp1.see.marks === 'D' || temp1.see.marks === 'F')) temp1.total = temp1.cie;
         else if ((temp1.cie === 'AB' || temp1.cie === 'NE' || temp1.cie === 'A' || temp1.cie === 'B' || temp1.cie === 'C' || temp1.cie === 'D' || temp1.cie === 'F') && (temp1.see === 'AB' || temp1.see === 'NE' || temp1.see.marks === 'A' || temp1.see.marks === 'B' || temp1.see.marks === 'C' || temp1.see.marks === 'D' || temp1.see.marks === 'F')) temp1.total = 0;
@@ -52,6 +51,8 @@ const getResult = async (query) => {
       const temp = {};
       temp.name = student.name;
       temp.reg_no = student.reg_no;
+      // sort allmarks by subject.sort_criteria
+      allMarks.sort((a, b) => a.subject.sort_criteria - b.subject.sort_criteria);
       temp.marks = allMarks;
       // console.log('allMarks>>>>', allMarks);
 

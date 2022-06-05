@@ -4,7 +4,7 @@ const subjectService = require('../Services/Subject');
 const get = async (query) => {
   const { sem, branch } = query;
 
-  const subjects = await subjectService.get({ sem, branch }, {}, {});
+  const subjects = await subjectService.get({ sem, branch }, {}, { sort: { sort_criteria: 1 } });
   return subjects;
 };
 

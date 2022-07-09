@@ -44,7 +44,7 @@ const getResult = async (query) => {
         else if ((temp1.cie === 'AB' || temp1.cie === 'NE' || temp1.cie === 'A' || temp1.cie === 'B' || temp1.cie === 'C' || temp1.cie === 'D' || temp1.cie === 'F') && (temp1.see === 'AB' || temp1.see === 'NE' || temp1.see.marks === 'A' || temp1.see.marks === 'B' || temp1.see.marks === 'C' || temp1.see.marks === 'D' || temp1.see.marks === 'F')) temp1.total = 0;
         else temp1.total = temp1.cie + temp1.see;
         // temp1.total = temp1.cie + temp1.see;
-        console.log("result>>>>>", temp1.cie, temp1.subject.min_cie_marks, temp1.see, temp1.subject.min_see_marks);
+        // console.log("result>>>>>", temp1.cie, temp1.subject.min_cie_marks, temp1.see, temp1.subject.min_see_marks);
         if (temp1.subject.credits !== 1) temp1.result = (temp1.cie >= temp1.subject.min_cie_marks && temp1.see >= temp1.subject.min_see_marks && temp1.cie !== 'AB' && temp1.see !== 'NE') ? 'P' : 'F';
         else if (temp1.subject.credits === 1) temp1.result = (temp1.cie === 'F') ? 'F' : 'P';
         return temp1;
@@ -56,7 +56,10 @@ const getResult = async (query) => {
       // sort allmarks by subject.sort_criteria
       allMarks.sort((a, b) => a.subject.sort_criteria - b.subject.sort_criteria);
       temp.marks = allMarks;
-      console.log('allMarks>>>>', temp.marks);
+      if (temp.reg_no === '21CS002') {
+        console.log("temp>>>", temp);
+      }
+      // console.log('allMarks>>>>', temp.marks);
 
       temp.total = allMarks.reduce((acc, curr) => acc + curr.total, 0);
       // console.log('temp.total>>>>', temp.total);
@@ -67,6 +70,7 @@ const getResult = async (query) => {
           temp.remarks = 'FAIL';
         }
       });
+      console.log("temp>>>", temp.reg_no, temp.marks, temp.remarks);
       if (student.branch !== 'CPE' && student.branch !== 'CPK' && student.branch !== 'AU') {
         temp.grace = (temp.remarks === 'PASS' && temp.total >= 275 && temp.total < 290) ? 280 - temp.total : 0;
         temp.grace = (temp.remarks === 'PASS' && temp.total >= 235 && temp.total < 240) ? 240 - temp.total : 0;
@@ -80,10 +84,10 @@ const getResult = async (query) => {
 
       temp.finalResult = (temp.remarks === 'FAIL') ? 'FAIL' : 'PASS';
       if (student.branch !== 'AU') {
-        console.log("result final>>>>", temp.finalResult, temp.remarks, temp.total);
+        // console.log("result final>>>>", temp.finalResult, temp.remarks, temp.total);
         if (temp.finalResult !== 'FAIL' && temp.total >= 280) temp.finalResult = 'DISTINCTION';
         if (temp.finalResult !== 'FAIL' && temp.total >= 260 && temp.total < 280) temp.finalResult = 'FIRST CLASS';
-        console.log("result final>>>>", temp.finalResult, temp.remarks);
+        // console.log("result final>>>>", temp.finalResult, temp.remarks);
       }
       if (student.branch === 'AU') {
         if (temp.finalResult !== 'FAIL' && temp.total >= 350) temp.finalResult = 'DISTINCTION';

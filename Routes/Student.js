@@ -32,6 +32,25 @@ module.exports = [
     },
   },
   {
+    method: 'GET',
+    path: '/v1/student',
+    options: {
+      handler: async (request) => {
+        const { query } = request;
+        return new Success(await student.getStudent(query).catch(responseHandler.error));
+      },
+      description: 'Get student',
+      tags: ['student', 'get', 'api'],
+      validate: {
+        query: {
+          reg_no: Joi.string().required(),
+          year: Joi.string().required(),
+        },
+        failAction: responseHandler.JoiFailAction,
+      },
+    },
+  },
+  {
     method: 'POST',
     path: '/v1/student/register',
     options: {
@@ -82,6 +101,33 @@ module.exports = [
             marks: Joi.string().required(),
           }),
         }),
+        failAction: responseHandler.JoiFailAction,
+      },
+    },
+  },
+  {
+    method: 'POST',
+    path: '/v1/student/update_student',
+    options: {
+      handler: async (request) => {
+        const { payload } = request;
+        await student.updateStudent(payload).catch(responseHandler.error);
+        return new Success();
+      },
+      description: 'update marks of student',
+      tags: ['student', 'update marks', 'api'],
+      validate: {
+        payload: {
+          _id: objectId.required(),
+          iaMarks: Joi.array().items(Joi.object().keys({
+            subject: objectId.required(),
+            marks: Joi.string().required(),
+          })),
+          endMarks: Joi.array().items(Joi.object().keys({
+            subject: objectId.required(),
+            marks: Joi.string().required(),
+          })),
+        },
         failAction: responseHandler.JoiFailAction,
       },
     },

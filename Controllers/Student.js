@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 const ApplicationError = require('../Lib/ApplicationError');
 
@@ -12,7 +13,6 @@ const signUp = async ({ payload }) => {
 const getStudents = async (query) => {
   // console.log('query>>>>',query);
   const criteria = query;
-  console.log('criteria>>>>', criteria);
   const res = await studentService.get(criteria, {}, {});
   return res;
 };
@@ -36,9 +36,29 @@ const updateMarks = async (payload) => {
   return null;
 };
 
+const getStudent = async (payload) => {
+  const populate = [{
+    path: 'ia_totals.subject',
+    select: 'code',
+  }, {
+    path: 'end_totals.subject',
+    select: 'code',
+  }];
+  const res = await studentService.getOne(payload, {}, {}, populate);
+  return res;
+};
+
+const updateStudent = async (payload) => {
+  const { iaMarks, endMarks } = payload;
+  const res = await studentService.updateOne({ _id: payload._id }, { $set: { ia_totals: iaMarks, end_totals: endMarks } });
+  return res;
+};
+
 
 module.exports = {
   signUp,
   getStudents,
   updateMarks,
+  getStudent,
+  updateStudent,
 };
